@@ -18,5 +18,6 @@ export class PostCreateComponent implements OnInit {
     }
     const { title, content } = postForm.value;
     this.postsService.addPost(title, content);
+    postForm.resetForm();
   }
 }
