@@ -5,7 +5,7 @@ import { app } from "./backend/app.js";
 import debug from "debug";
 import http from "http";
 
-debug = debug("<%- name %>:server");
+debug("PostsPsh:server");
 
 /**
  * Get port from environment and store in Express.
