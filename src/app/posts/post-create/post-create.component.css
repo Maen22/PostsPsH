@@ -3,14 +3,6 @@ textarea {
   width: 100%;
 }
 
-mat-form-field {
-  font-size: 1rem;
-}
-
-mat-error {
-  font-size: 0.7rem;
-}
-
 button {
   margin-top: 20px;
 }
