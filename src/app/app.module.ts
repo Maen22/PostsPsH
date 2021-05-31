@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 // My Components
 import { PostCreateComponent } from './posts/post-create/post-create.component';
@@ -30,6 +31,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     MatInputModule,
     MatCardModule,
     MatButtonModule,
