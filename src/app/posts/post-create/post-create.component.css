@@ -4,5 +4,9 @@ textarea {
 }
 
 button {
-  margin-top: 20px;
+  margin-top: 10px;
+}
+
+mat-spinner {
+  margin: auto;
 }

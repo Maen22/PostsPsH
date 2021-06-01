@@ -4,7 +4,7 @@ import Post from "../models/post.js";
 const router = express.Router();
 
 // Get Posts
-router.get("/api/posts", (_, res) => {
+router.get("", (_, res) => {
   Post.find()
     .then((documents) => {
       const posts = documents;
@@ -18,7 +18,7 @@ router.get("/api/posts", (_, res) => {
     });
 });
 
-router.get("/api/posts/:id", (req, res) => {
+router.get("/:id", (req, res) => {
   const { id } = req.params;
   console.log(req.params);
   Post.findById(id).then((post) => {
@@ -34,7 +34,7 @@ router.get("/api/posts/:id", (req, res) => {
 });
 
 // Create a Post
-router.post("/api/posts", (req, res) => {
+router.post("", (req, res) => {
   const { title, content } = req.body;
   const post = new Post({
     title,
@@ -55,7 +55,7 @@ router.post("/api/posts", (req, res) => {
 });
 
 // Update a Post
-router.put("/api/posts/:id", (req, res) => {
+router.put("/:id", (req, res) => {
   const { id } = req.params;
   const { title, content } = req.body;
 
@@ -70,7 +70,7 @@ router.put("/api/posts/:id", (req, res) => {
 });
 
 // Delete a Post
-router.delete("/api/posts/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
   const { id } = req.params;
 
   Post.deleteOne({ _id: id }).then((result) => {

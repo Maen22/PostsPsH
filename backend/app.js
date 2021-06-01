@@ -38,6 +38,6 @@ app.use((_, res, next) => {
   next();
 });
 
-app.use(postRoutes);
+app.use("/api/posts", postRoutes);
 
 export { app };
