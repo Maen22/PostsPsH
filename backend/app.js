@@ -33,7 +33,7 @@ app.use((_, res, next) => {
   );
   res.setHeader(
     "Access-Control-Allow-Methods",
-    "GET, POST, PATCH, DELETE, OPTIONS"
+    "GET, POST, PATCH, PUT, DELETE, OPTIONS"
   );
   next();
 });
@@ -51,6 +51,21 @@ app.get("/api/posts", (_, res) => {
     .catch((err) => {
       console.log(err);
     });
+});
+
+app.get("/api/posts/:id", (req, res) => {
+  const { id } = req.params;
+  console.log(req.params);
+  Post.findById(id).then((post) => {
+    if (post) {
+      res.status(200).json(post);
+    } else {
+      console.log("Error");
+      res.status(404).json({
+        message: "Post not found",
+      });
+    }
+  });
 });
 
 // Create a Post
@@ -72,6 +87,21 @@ app.post("/api/posts", (req, res) => {
     .catch((err) => {
       console.log(err);
     });
+});
+
+// Update a Post
+app.put("/api/posts/:id", (req, res) => {
+  const { id } = req.params;
+  const { title, content } = req.body;
+
+  const post = { title, content };
+
+  Post.updateOne({ _id: id }, post).then((result) => {
+    console.log(result);
+    res.status(200).json({
+      message: "Post updated succesfully",
+    });
+  });
 });
 
 // Delete a Post

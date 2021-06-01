@@ -41,6 +41,12 @@ export class PostsService {
       });
   }
 
+  getPost(postId: string) {
+    return this.http.get<{ _id: string; title: string; content: string }>(
+      `http://localhost:3000/api/posts/${postId}`
+    );
+  }
+
   addPost(title: string, content: string): void {
     const post = { title, content };
     this.http
@@ -55,13 +61,32 @@ export class PostsService {
       });
   }
 
+  updatePost(postId: string, post: Partial<Post>) {
+    const updatedPost = {
+      title: post.title,
+      content: post.content,
+    };
+    this.http
+      .put<{ message: string }>(
+        `http://localhost:3000/api/posts/${postId}`,
+        updatedPost
+      )
+      .subscribe((response) => {
+        const updatedPosts = [...this.posts];
+        const oldPostIndex = updatedPosts.findIndex((p) => p.id == postId);
+        updatedPosts[oldPostIndex] = { id: postId, ...updatedPost } as Post;
+        this.posts = updatedPosts;
+        this.postsUpdated.next([...this.posts]);
+      });
+  }
+
   deletePost(postId: string) {
     this.http
       .delete<{ message: string }>(`http://localhost:3000/api/posts/${postId}`)
       .subscribe((response) => {
         console.log(response.message);
         this.posts = this.posts.filter((post) => {
-          return post.id != postId;
+          return post.id !== postId;
         });
         this.postsUpdated.next([...this.posts]);
       });
