@@ -2,6 +2,9 @@ import express from "express";
 
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -15,7 +18,14 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api/posts", (_, res, __) => {
+app.post("/api/posts", (req, res, __) => {
+  console.log(req.body);
+  res.status(201).json({
+    message: "Post added succesfully",
+  });
+});
+
+app.get("/api/posts", (_, res, __) => {
   const posts = [
     {
       id: "haghjgdljiekd",
@@ -29,7 +39,7 @@ app.use("/api/posts", (_, res, __) => {
     },
   ];
   res.status(200).json({
-    message: "Posts fetched succesfully!",
+    message: "Posts fetched succesfully",
     posts,
   });
 });
