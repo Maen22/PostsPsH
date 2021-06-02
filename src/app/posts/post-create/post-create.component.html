@@ -16,13 +16,26 @@
     <div>
       <button
         type="button"
-        mat-stroked-button
-        color="primary"
+        mat-raised-button
+        color="accent"
+        class="pick-button"
         (click)="filePicker.click()"
       >
         Pick Image
       </button>
-      <input type="file" #filePicker />
+      <input type="file" #filePicker (change)="onImagePick($event)" />
+    </div>
+
+    <mat-error *ngIf="form?.get('image')?.invalid"
+      >Please pick a valid image</mat-error
+    >
+
+    <div class="image-preview">
+      <img
+        [src]="imagePreview"
+        [alt]="form?.value.title"
+        *ngIf="imagePreview !== '' && imagePreview && form?.get('image')?.valid"
+      />
     </div>
 
     <mat-form-field>
@@ -36,6 +49,6 @@
         >Please enter a post content</mat-error
       >
     </mat-form-field>
-    <button mat-flat-button color="accent" type="submit">Save Post</button>
+    <button mat-raised-button color="primary" type="submit">Save Post</button>
   </form>
 </mat-card>
