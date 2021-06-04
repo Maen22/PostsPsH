@@ -28,7 +28,7 @@ const storage = multer.diskStorage({
 });
 
 // Get Posts
-router.get("", (_, res) => {
+router.get("", multer(storage).single("image"), (_, res) => {
   Post.find()
     .then((documents) => {
       const posts = documents;
