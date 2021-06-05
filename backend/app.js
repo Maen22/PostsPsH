@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import postRoutes from "./routes/postRoutes.js";
+import path from "path";
 
 mongoose
   .connect(
@@ -24,6 +25,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use("/images", express.static(path.join("backend/images")));
 
 app.use((_, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");

@@ -47,6 +47,7 @@ export class PostCreateComponent implements OnInit {
             id: postData._id,
             title: postData.title,
             content: postData.content,
+            imagePath: null,
           };
           this.isLoading = false;
           // If EDIT MODE
@@ -84,7 +85,12 @@ export class PostCreateComponent implements OnInit {
       this.postsService.addPost(title, content, image);
       this.form!.reset();
     } else {
-      this.postsService.updatePost(this.postId!, { title, content });
+      this.postsService.updatePost(this.postId!, {
+        id: this.postId!,
+        title,
+        content,
+        imagePath: null,
+      });
     }
   }
 }
