@@ -84,14 +84,20 @@ router.post("", multer({ storage }).single("image"), (req, res) => {
 });
 
 // Update a Post
-router.put("/:id", (req, res) => {
+router.put("/:id", multer({ storage }).single("image"), (req, res) => {
+  let imagePath = req.body.imagePath;
+  if (req.file) {
+    const url = req.protocol + "://" + req.get("host");
+    imagePath = url + "/images/" + req.file.filename;
+  }
+
   const { id } = req.params;
   const { title, content } = req.body;
 
-  const post = { title, content };
+  const post = { title, content, imagePath };
 
   Post.updateOne({ _id: id }, post).then((result) => {
-    console.log(result);
+    console.log(`Post with id: ${id} udpated`);
     res.status(200).json({
       message: "Post updated succesfully",
     });
