@@ -28,8 +28,14 @@ const storage = multer.diskStorage({
 });
 
 // Get Posts
-router.get("", (_, res) => {
-  Post.find()
+router.get("", (req, res) => {
+  const { pageSize, page } = req.query;
+  const postQuery = Post.find();
+  if (pageSize && page) {
+    postQuery.skip(+pageSize * (+page - 1)).limit(+pageSize);
+  }
+
+  postQuery
     .then((documents) => {
       const posts = documents;
       res.status(200).json({
