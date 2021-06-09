@@ -61,8 +61,6 @@ export class PostsService {
   }
 
   addPost(title: string, content: string, image: File): void {
-    const post = { title, content };
-
     const postData = new FormData();
     postData.append('title', title);
     postData.append('content', content);

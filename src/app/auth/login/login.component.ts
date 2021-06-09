@@ -6,11 +6,9 @@ import { AuthService } from '../auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   isLoading = false;
   constructor(private authService: AuthService) {}
-
-  ngOnInit(): void {}
 
   onLogin(loginForm: NgForm) {
     if (loginForm.invalid) {
