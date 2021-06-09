@@ -2,6 +2,8 @@ import express from "express";
 import Post from "../models/post.js";
 import multer from "multer";
 
+import checkAuth from "../middleware/check-auth.js";
+
 const router = express.Router();
 
 const MIME_TYPE_MAP = {
@@ -70,7 +72,7 @@ router.get("/:id", (req, res) => {
 });
 
 // Create a Post
-router.post("", multer({ storage }).single("image"), (req, res) => {
+router.post("", checkAuth, multer({ storage }).single("image"), (req, res) => {
   const url = req.protocol + "://" + req.get("host");
   const { title, content } = req.body;
   const post = new Post({
@@ -96,28 +98,33 @@ router.post("", multer({ storage }).single("image"), (req, res) => {
 });
 
 // Update a Post
-router.put("/:id", multer({ storage }).single("image"), (req, res) => {
-  let imagePath = req.body.imagePath;
-  if (req.file) {
-    const url = req.protocol + "://" + req.get("host");
-    imagePath = url + "/images/" + req.file.filename;
-  }
+router.put(
+  "/:id",
+  checkAuth,
+  multer({ storage }).single("image"),
+  (req, res) => {
+    let imagePath = req.body.imagePath;
+    if (req.file) {
+      const url = req.protocol + "://" + req.get("host");
+      imagePath = url + "/images/" + req.file.filename;
+    }
 
-  const { id } = req.params;
-  const { title, content } = req.body;
+    const { id } = req.params;
+    const { title, content } = req.body;
 
-  const post = { title, content, imagePath };
+    const post = { title, content, imagePath };
 
-  Post.updateOne({ _id: id }, post).then((result) => {
-    console.log(`Post with id: ${id} udpated`);
-    res.status(200).json({
-      message: "Post updated succesfully",
+    Post.updateOne({ _id: id }, post).then((result) => {
+      console.log(`Post with id: ${id} udpated`);
+      res.status(200).json({
+        message: "Post updated succesfully",
+      });
     });
-  });
-});
+  }
+);
 
 // Delete a Post
-router.delete("/:id", (req, res) => {
+router.delete("/:id", checkAuth, (req, res) => {
   const { id } = req.params;
 
   Post.deleteOne({ _id: id }).then((result) => {
