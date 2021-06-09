@@ -1,7 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
-import postRoutes from "./routes/postRoutes.js";
 import path from "path";
+
+import postRoutes from "./routes/postRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
 mongoose
   .connect(
@@ -41,5 +43,6 @@ app.use((_, res, next) => {
 });
 
 app.use("/api/posts", postRoutes);
+app.use("/api/users", userRoutes);
 
 export { app };
