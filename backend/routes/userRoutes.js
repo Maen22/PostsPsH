@@ -4,9 +4,6 @@ import User from "../models/user.js";
 
 const router = express.Router();
 
-// Login Endpoint
-router.get("/login", (req, res) => {});
-
 // Signup Endpoint
 router.post("/signup", (req, res) => {
   const { email, password } = req.body;
@@ -31,6 +28,9 @@ router.post("/signup", (req, res) => {
       });
   });
 });
+
+// Login Endpoint
+// router.get("/login", (req, res) => {});
 
 const userRoutes = router;
 
