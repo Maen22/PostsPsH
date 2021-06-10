@@ -7,7 +7,8 @@ import userRoutes from "./routes/userRoutes.js";
 
 mongoose
   .connect(
-    "mongodb+srv://Maen:Lux5YtaLXIVFOwMx@cluster0.mszqm.mongodb.net/PostsPsH?retryWrites=true&w=majority",
+    // "mongodb+srv://Maen:Lux5YtaLXIVFOwMx@cluster0.mszqm.mongodb.net/PostsPsH?retryWrites=true&w=majority",
+    "mongodb://localhost:27017/PostPsh",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
