@@ -7,17 +7,16 @@ import { AuthService } from '../auth.service';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent {
   isLoading = false;
 
   constructor(private authService: AuthService) {}
-
-  ngOnInit(): void {}
 
   onSignup(signupForm: NgForm) {
     if (signupForm.invalid) {
       return;
     }
+    this.isLoading = true;
     this.authService.createUser(
       signupForm.value.email,
       signupForm.value.password
