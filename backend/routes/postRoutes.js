@@ -75,10 +75,12 @@ router.get("/:id", (req, res) => {
 router.post("", checkAuth, multer({ storage }).single("image"), (req, res) => {
   const url = req.protocol + "://" + req.get("host");
   const { title, content } = req.body;
+  const { userId } = req.userData;
   const post = new Post({
     title,
     content,
     imagePath: url + "/images/" + req.file.filename,
+    creator: userId,
   });
 
   post
